@@ -2,11 +2,11 @@ import zipfile
 import math
 import pygame
 import io
-SCREEN_WIDTH = 1800
-SCREEN_HEIGHT = 800
-BUTTON_WIDTH = 150
-BUTTON_HEIGHT = 50+50//3
-BUTTON_PADDING = 10
+SCREEN_WIDTH = 1200
+SCREEN_HEIGHT = 600
+BUTTON_WIDTH = SCREEN_WIDTH/9
+BUTTON_HEIGHT = 150//3
+BUTTON_PADDING = 15
 NUM_ROWS = 3
 NUM_COLS = 5
 BUTTON_COLOR = (255, 255, 0)
@@ -103,7 +103,7 @@ class Pirate:
             with zf.open('pirate_ship.png') as file:
                 pirate_ship = file.read()
         self.image = pygame.image.load(io.BytesIO(pirate_ship)).convert_alpha()
-        self.image= pygame.transform.scale(self.image,(90,150))
+        self.image= pygame.transform.scale(self.image,(60,100))
         self.og_image=pygame.transform.rotate(self.image,self.angle)
         self.colorkey = self.og_image.get_at((0, 0))
         self.rect = self.image.get_rect(center=(x, y))
@@ -177,7 +177,7 @@ class Pirate:
         screen.blit(self.image, self.rect)
         
 class ElitePirate:
-    def __init__(self, x, y, speed=3):
+    def __init__(self, x, y, speed=1):
         self.grade=2
         self.angle=0
         self.x=x
@@ -186,7 +186,7 @@ class ElitePirate:
             with zf.open('elitepirate_ship.png') as file:
                 elitepirate_ship= file.read()
         self.image = pygame.image.load(io.BytesIO(elitepirate_ship)).convert_alpha()
-        self.image= pygame.transform.scale(self.image,(90,150))
+        self.image= pygame.transform.scale(self.image,(60,100))
         self.og_image=pygame.transform.rotate(self.image,self.angle)
         self.colorkey = self.og_image.get_at((0, 0))
         self.rect = self.image.get_rect(center=(x, y))
@@ -255,7 +255,7 @@ class ElitePirate:
         screen.blit(self.image, self.rect)         
 
 class SpecialPirate:
-    def __init__(self, x, y, speed=6):
+    def __init__(self, x, y, speed=1):
         self.grade=2
         self.angle=0
         self.x=x
@@ -264,7 +264,7 @@ class SpecialPirate:
             with zf.open('specialpirate_ship.png') as file:
                 elitepirate_ship= file.read()
         self.image = pygame.image.load(io.BytesIO(elitepirate_ship)).convert_alpha()
-        self.image= pygame.transform.scale(self.image,(60,150))
+        self.image= pygame.transform.scale(self.image,(40,100))
         self.og_image=pygame.transform.rotate(self.image,self.angle)
         self.colorkey = self.og_image.get_at((0, 0))
         self.rect = self.image.get_rect(center=(x, y))
@@ -342,7 +342,7 @@ class Boat:
             with zf.open('player_ship.png') as file:
                 player_ship = file.read()
         self.image = pygame.image.load(io.BytesIO(player_ship)).convert_alpha()
-        self.og_image= pygame.transform.scale(self.image,(90,150))
+        self.og_image= pygame.transform.scale(self.image,(60,100))
         self.colorkey = self.og_image.get_at((0, 0))
         self.og_image.set_colorkey(self.colorkey)
        
@@ -429,7 +429,7 @@ class Island:
             with zf.open('island.png') as file:
                 island = file.read()
         self.image = pygame.image.load(io.BytesIO(island)).convert_alpha()        
-        self.image= pygame.transform.scale(self.image,(180,180))
+        self.image= pygame.transform.scale(self.image,(120,120))
         self.rect=self.image.get_bounding_rect()
         self.position=position
         self.rect=self.image.get_bounding_rect()
@@ -439,140 +439,141 @@ class Island:
 
 def levels(selected):
     if selected == 1:
-        boat = Boat(1010, 625)
-        island = Island((90, 90))
-        pirates = [Pirate(150, 400, ((500, 150), (150, 400)))]
+        boat = Boat(673, 468)
+        island = Island((60, 67))
+        pirates = [Pirate(100, 300, ((333, 112), (100, 300)))]
         elitepirates = []
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 2:
-        boat = Boat(600, 625)
-        island = Island((600, 90))
-        pirates = [Pirate(500, 400, ((1100, 400), (500, 400))),
-                   Pirate(800, 600, ((500, 600), (1100, 600)))]
+        boat = Boat(400, 468)
+        island = Island((400, 67))
+        pirates = [Pirate(333, 300, ((733, 300), (333, 300))),
+                Pirate(533, 450, ((333, 450), (733, 450)))]
         elitepirates = []
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 3:
-        boat = Boat(600, 625)
-        island = Island((600, 90))
-        pirates = [Pirate(500, 400, ((1100, 400), (500, 400))),
-                   Pirate(800, 600, ((500, 600), (1100, 600)))]
-        elitepirates = [ElitePirate(90,90)]
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        boat = Boat(400, 468)
+        island = Island((400, 67))
+        pirates = [Pirate(333, 300, ((733, 300), (333, 300))),
+                Pirate(533, 450, ((333, 450), (733, 450)))]
+        elitepirates = [ElitePirate(60, 67)]
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 4:
-        boat = Boat(1010,325)
-        island = Island((0, 310))
-        pirates = [Pirate(300,75, ((300,725), (300,75))),
-                   Pirate(900,75, ((900,725), (900,75)))]
-        elitepirates = [ElitePirate(600,400)]
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        boat = Boat(673, 243)
+        island = Island((0, 232))
+        pirates = [Pirate(200, 56, ((200, 543), (200, 56))),
+                Pirate(600, 56, ((600, 543), (600, 56)))]
+        elitepirates = [ElitePirate(400, 300)]
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 5:
-        boat = Boat(1010,625)
-        island = Island((0, 310))
-        pirates = [Pirate(300,625, ((300,75), (300,625))),
-                   Pirate(900,625, ((900,75), (900,625)))]
-        elitepirates = [ElitePirate(1010,75)]
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        boat = Boat(673, 468)
+        island = Island((0, 232))
+        pirates = [Pirate(200, 468, ((200, 56), (200, 468))),
+                Pirate(600, 468, ((600, 56), (600, 468)))]
+        elitepirates = [ElitePirate(673, 56)]
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 6:
-        boat = Boat(75,625)
-        island = Island((600, 310))
-        pirates = [Pirate(600, 220, ((800, 220), (800, 550), (400, 550), (400, 220)),speed=6),
-        Pirate(600, 550, ((400, 550), (400, 220),(800, 220), (800, 550)),speed=6)]
-        elitepirates = [ElitePirate(1010,75)]
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        boat = Boat(50, 468)
+        island = Island((400, 232))
+        pirates = [Pirate(400, 165, ((533, 165), (533, 412), (266, 412), (266, 165)), speed=6),
+                Pirate(400, 412, ((266, 412), (266, 165), (533, 165), (533, 412)), speed=6)]
+        elitepirates = [ElitePirate(673, 56)]
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 7:
-        boat = Boat(75,250)
-        island = Island((1000, 400))
-        pirates = [Pirate(400,75, ((800,625), (400, 625),(400,75)),speed=5),
-                   Pirate(400, 625, ((400,75),(800,625), (400, 625)),speed=5),
-                   Pirate(600,310, ((800,625), (400, 625),(400,75)),speed=5),
-                   Pirate(400,400, ((400,75),(800,625), (400, 625)),speed=5),
-                   Pirate(800, 625, ((400,625),(400, 75),(800,625)),speed=5) ]
-        elitepirates = [] 
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates
+        boat = Boat(50, 187)
+        island = Island((667, 300))
+        pirates = [Pirate(266, 56, ((533, 468), (266, 468), (266, 56)), speed=5),
+                Pirate(266, 468, ((266, 56), (533, 468), (266, 468)), speed=5),
+                Pirate(400, 232, ((533, 468), (266, 468), (266, 56)), speed=5),
+                Pirate(266, 300, ((266, 56), (533, 468), (266, 468)), speed=5),
+                Pirate(533, 468, ((266, 468), (266, 56), (533, 468)), speed=5)]
+        elitepirates = []
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 8:
-        boat = Boat(75,325)
-        island = Island((1000,400))
+        boat = Boat(50, 243)
+        island = Island((667, 300))
         pirates = []
         elitepirates = []
-        specialpirates=[SpecialPirate(400,400),SpecialPirate(400,200),SpecialPirate(400,600)]
-        return boat, island, pirates, elitepirates,specialpirates
-    
+        specialpirates = [SpecialPirate(266, 300), SpecialPirate(266, 150), SpecialPirate(266, 450)]
+        return boat, island, pirates, elitepirates, specialpirates
+
     elif selected == 9:
-        boat = Boat(550, 600)
-        island = Island((1000, 100))
-        pirates = [Pirate(700, 300, ((400,300), (400,600), (900,600))),
-                   Pirate(200, 700, ((800,700), (800,400), (100,400)))]
+        boat = Boat(366, 450)
+        island = Island((667, 75))
+        pirates = [Pirate(466, 225, ((266, 225), (266, 450), (600, 450))),
+                Pirate(133, 525, ((533, 525), (533, 300), (66, 300)))]
         elitepirates = []
-        specialpirates=[SpecialPirate(400,400)]
-        return boat, island, pirates, elitepirates,specialpirates
-             
+        specialpirates = [SpecialPirate(266, 300)]
+        return boat, island, pirates, elitepirates, specialpirates
+
     elif selected == 10:
-        boat = Boat(75, 600)
-        island = Island((1000,90))
-        pirates = [Pirate(600, 220, ((800, 220), (800, 550), (400, 550), (400, 220)),speed=6),
-        Pirate(600, 550, ((400, 550), (400, 220),(800, 220), (800, 550)),speed=6)]
-        elitepirates = [ElitePirate(1000,650)]
-        specialpirates=[SpecialPirate(400,400)]
-        return boat, island, pirates, elitepirates,specialpirates
-        
+        boat = Boat(50, 450)
+        island = Island((667, 67))
+        pirates = [Pirate(400, 165, ((533, 165), (533, 412), (266, 412), (266, 165)), speed=6),
+                Pirate(400, 412, ((266, 412), (266, 165), (533, 165), (533, 412)), speed=6)]
+        elitepirates = [ElitePirate(667, 487)]
+        specialpirates = [SpecialPirate(266, 300)]
+        return boat, island, pirates, elitepirates, specialpirates
+
     elif selected == 11:
-        boat = Boat(75,75)
-        island = Island((1000,600))
-        pirates = [Pirate(400,600, ((1000,200), (400,600)),speed=6),
-                   Pirate(75, 400, ((400,75), (75, 400)),speed=6)]
-        elitepirates = [ElitePirate(1000,75)]
-        specialpirates=[SpecialPirate(75,600)]
-        return boat, island, pirates, elitepirates,specialpirates
+        boat = Boat(50, 56)
+        island = Island((667, 450))
+        pirates = [Pirate(266, 450, ((667, 150), (266, 450)), speed=6),
+                Pirate(50, 300, ((266, 56), (50, 300)), speed=6)]
+        elitepirates = [ElitePirate(667, 56)]
+        specialpirates = [SpecialPirate(50, 450)]
+        return boat, island, pirates, elitepirates, specialpirates
 
     elif selected == 12:
-        boat = Boat(310, 625)
-        island = Island((400, 90))
-        pirates = [Pirate(500, 400, ((1100, 400), (500, 400))),
-                   Pirate(800, 600, ((500, 600), (1100, 600)))]
-        elitepirates = [ElitePirate(90,90),ElitePirate(1000,90)]
-        specialpirates=[SpecialPirate(90,625),SpecialPirate(1000,625)]
-        return boat, island, pirates, elitepirates,specialpirates
-    
+        boat = Boat(206, 468)
+        island = Island((266, 67))
+        pirates = [Pirate(333, 300, ((733, 300), (333, 300))),
+                Pirate(533, 450, ((333, 450), (733, 450)))]
+        elitepirates = [ElitePirate(60, 67), ElitePirate(667, 67)]
+        specialpirates = [SpecialPirate(60, 468), SpecialPirate(667, 468)]
+        return boat, island, pirates, elitepirates, specialpirates
+
     elif selected == 13:
-        boat = Boat(75, 600)
-        island = Island((1000,240))
-        pirates = [Pirate(75,75, ((1000,600), (75,75)),speed=8)]
+        boat = Boat(50, 450)
+        island = Island((667, 180))
+        pirates = [Pirate(50, 56, ((667, 450), (50, 56)), speed=8)]
         elitepirates = []
-        specialpirates=[SpecialPirate(400,400),SpecialPirate(800,400)]
-        return boat, island, pirates, elitepirates,specialpirates
-        
+        specialpirates = [SpecialPirate(266, 300), SpecialPirate(533, 300)]
+        return boat, island, pirates, elitepirates, specialpirates
+
     elif selected == 14:
-        boat = Boat(75, 600)
-        island = Island((850,160))
-        pirates = [Pirate(950,75, ((1065,75), (1065,405), (730,405),(730,75)),speed=10)
-               ,Pirate(950,405, ((730,405),(730,75),(1065,75), (1065,405)),speed=10)
-               ,Pirate(600,75, ((600,600),(600,75)))  ]
-        elitepirates = [ElitePirate(75,75)]
-        specialpirates=[SpecialPirate(75,400),SpecialPirate(600,600)]
-        return boat, island, pirates, elitepirates,specialpirates
-     
+        boat = Boat(50, 450)
+        island = Island((567, 120))
+        pirates = [Pirate(633, 56, ((710, 56), (710, 303), (487, 303), (487, 56)), speed=10),
+                Pirate(633, 303, ((487, 303), (487, 56), (710, 56), (710, 303)), speed=10),
+                Pirate(400, 56, ((400, 450), (400, 56)))]
+        elitepirates = [ElitePirate(50, 56)]
+        specialpirates = [SpecialPirate(50, 300), SpecialPirate(400, 450)]
+        return boat, island, pirates, elitepirates, specialpirates
+
     elif selected == 15:
-        boat = Boat(550, 600)
-        island = Island((100, 700))
-        pirates = [Pirate(800, 200, ((400,200), (400,600), (900,600))),
-                   Pirate(1100, 500, ((800,500), (800,200), (500,200)))]
+        boat = Boat(366, 450)
+        island = Island((66, 525))
+        pirates = [Pirate(533, 150, ((266, 150), (266, 450), (600, 450))),
+                Pirate(733, 375, ((533, 375), (533, 150), (333, 150)))]
         elitepirates = []
-        specialpirates=[]
-        return boat, island, pirates, elitepirates,specialpirates        
+        specialpirates = []
+        return boat, island, pirates, elitepirates, specialpirates
+      
 
 def game_over(screen):
     
@@ -585,12 +586,13 @@ def game_over(screen):
             with zf.open('button.png') as file:
                 button = file.read()
     image = pygame.image.load(io.BytesIO(button)).convert_alpha()    
-    font = pygame.font.SysFont("Impact", 72)
-    game_over_text = font.render("Defeat", True, (0, 0, 0))
-    text_rect = game_over_text.get_rect(center=(600,800//3))
-    text = font.render(' menu', True, (0, 0, 0))
+    font = pygame.font.SysFont("Calibiri", 60)
+    game_over_text = font.render("  Defeat", True, (0, 0, 0))
+    text_rect = pygame.Rect(500,200,180, 60)
+    text = font.render(' menu ', True, (0, 0, 0))
     rect=text.get_rect()  
     rect.center=((600,400))
+    rect.height+=10
     image1= pygame.transform.scale(image,(rect.width, rect.height))
     image2= pygame.transform.scale(image,(text_rect.width, text_rect.height))
     while True:
@@ -623,12 +625,14 @@ def you_won(screen):
             with zf.open('button.png') as file:
                 button = file.read()
     image = pygame.image.load(io.BytesIO(button)).convert_alpha()    
-    font = pygame.font.SysFont("Impact", 72)
+    image = pygame.image.load(io.BytesIO(button)).convert_alpha()    
+    font = pygame.font.SysFont("Calibiri", 60)
     game_over_text = font.render("You won", True, (0, 0, 0))
-    text_rect = game_over_text.get_rect(center=(600,800//3))
-    text = font.render(' menu', True, (0, 0, 0))
+    text_rect = pygame.Rect(500,200,180, 60)
+    text = font.render(' menu ', True, (0, 0, 0))
     rect=text.get_rect()  
     rect.center=((600,400))
+    rect.height+=10
     image1= pygame.transform.scale(image,(rect.width, rect.height))
     image2= pygame.transform.scale(image,(text_rect.width, text_rect.height))
     while True:
@@ -665,9 +669,9 @@ def create_menu(surface):
     image = pygame.image.load(io.BytesIO(button)).convert_alpha()
     image= pygame.transform.scale(image,(BUTTON_WIDTH, BUTTON_HEIGHT))
     
-    font = pygame.font.SysFont("Impact", 72)
+    font = pygame.font.SysFont("Calibiri", 60)
     title = font.render('Levels', True, (0, 0, 0))
-    image2= pygame.transform.scale(image,(250, 90)) 
+    image2= pygame.transform.scale(image,(550//3, 70)) 
     font = pygame.font.Font(None, FONT_SIZE)
 
     # Create buttons
@@ -700,7 +704,7 @@ def create_menu(surface):
         # Draw buttons and text on surface
         surface.fill(SEA_COLOR)
         surface.blit(background, (0,0))
-        surface.blit(image2, (450,90))
+        surface.blit(image2, (470,90))
         surface.blit(title, (500,100))
         for rect, text in buttons:
             surface.blit(image,rect)
@@ -737,6 +741,8 @@ def game(screen,IS_DRAWN,IS_DRAWING,delay):
         for event in pygame.event.get():
             if event.type == pygame.QUIT:
                 running = False
+                pygame.quit()
+                break
             elif event.type == pygame.MOUSEBUTTONDOWN:
                 b=boat.getpos()
                 e=event.pos
@@ -751,70 +757,71 @@ def game(screen,IS_DRAWN,IS_DRAWING,delay):
                      IS_DRAWN= True
                      IS_DRAWING=False
                      path.smooth(path.getpath())     
+        else:
                                                                 
-        screen.fill(SEA_COLOR)
-        
-        if (delay%4==0):            
-            for pirate in elitepirates:
-                pirate.update_position(island.rect,pirates)
-                r=check_islandcollision(island,elitepirates)
-                if r==False:
-                    game_over(screen)
+            screen.fill(SEA_COLOR)
+            
+            if (delay%70==0):            
+                for pirate in elitepirates:
+                    pirate.update_position(island.rect,pirates)
+                    r=check_islandcollision(island,elitepirates)
+                    if r==False:
+                        game_over(screen)
+                    
+                for pirate in specialpirates:
+                    pirate.update_position(boat.rect,pirates)                
                 
-            for pirate in specialpirates:
-                pirate.update_position(boat.rect,pirates)                
+                for pirate in pirates:
+                    pirate.update_position()
+                    check_collisions(pirates+elitepirates+specialpirates)
+            
+            if (IS_DRAWN==True) and (delay%40==0):
+                if delay==299:
+                    delay=0            
+                p=boat.update_position(path.points,path)
+                if p==[]:
+                    path.reset()    
+                    IS_DRAWN=False
+                else:
+                    path.update(p)    
+            delay+=1
+            
+            running=checkboatcollisions(boat,pirates,screen,selected_level)
+            if running==False:
+                dead=[]
+                game_over(screen)
+            
+            running=checkboatcollisions(boat,specialpirates,screen,selected_level)
+            if running==False:
+                dead=[]
+                game_over(screen)
+                    
+            running=checkboatcollisions(boat,elitepirates,screen,selected_level)
+            if running==False:
+                dead=[]
+                game_over(screen)
+            
+            running=checkwinner(boat,island)
+            if running==False:
+                dead=[]
+                you_won(screen)  
+            
+            boat.render(screen)  
+            
+            island.render(screen) 
+            
+            path.draw(screen)        
             
             for pirate in pirates:
-                pirate.update_position()
-                check_collisions(pirates+elitepirates+specialpirates)
-        
-        if (IS_DRAWN==True) and (delay%6==0):
-            if delay==299:
-                delay=0            
-            p=boat.update_position(path.points,path)
-            if p==[]:
-                path.reset()    
-                IS_DRAWN=False
-            else:
-                path.update(p)    
-        delay+=1
-        
-        running=checkboatcollisions(boat,pirates,screen,selected_level)
-        if running==False:
-            dead=[]
-            game_over(screen)
-         
-        running=checkboatcollisions(boat,specialpirates,screen,selected_level)
-        if running==False:
-            dead=[]
-            game_over(screen)
-                   
-        running=checkboatcollisions(boat,elitepirates,screen,selected_level)
-        if running==False:
-            dead=[]
-            game_over(screen)
-        
-        running=checkwinner(boat,island)
-        if running==False:
-            dead=[]
-            you_won(screen)  
-          
-        boat.render(screen)  
-        
-        island.render(screen) 
-        
-        path.draw(screen)        
-        
-        for pirate in pirates:
-            pirate.draw(screen)
+                pirate.draw(screen)
+                
+            for pirate in specialpirates:
+                pirate.draw(screen)
             
-        for pirate in specialpirates:
-            pirate.draw(screen)
-        
-        for pirate in elitepirates:
-            pirate.draw(screen)
-            
-        pygame.display.update()
+            for pirate in elitepirates:
+                pirate.draw(screen)
+                
+            pygame.display.update()
     
     # Quit Pygame
     pygame.quit()
