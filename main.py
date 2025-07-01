@@ -1,7 +1,9 @@
+import asyncio
 import zipfile
 import math
 import pygame
 import io
+
 SCREEN_WIDTH = 1200
 SCREEN_HEIGHT = 600
 BUTTON_WIDTH = SCREEN_WIDTH/9
@@ -826,9 +828,7 @@ def game(screen,IS_DRAWN,IS_DRAWING,delay):
     # Quit Pygame
     pygame.quit()
 
-    
-pygame.init()
-
-screen = pygame.display.set_mode((SCREEN_WIDTH,SCREEN_HEIGHT))
-
-game(screen,IS_DRAWN,IS_DRAWING,delay)  
+async def main():
+    pygame.init()
+    screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
+    game(screen, IS_DRAWN, IS_DRAWING, delay)
